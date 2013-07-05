@@ -39,11 +39,3 @@ If the call encountered an error then the response will be of type Error and `is
 Every error will have an associated error code and message which can be retrieved through the Error class getter methods as seen in the example above.
 
 For the official documentation of the Mailermailer XML-RPC API please visit [here](http://www.mailermailer.com/api/index.rwp).
-
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
