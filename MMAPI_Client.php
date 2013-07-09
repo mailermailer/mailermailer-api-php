@@ -74,10 +74,11 @@ class MMAPI_Client
      * @param string $subscriber_email email of the subscriber to unsubscribe
      * @return true | MMAPI_Error
      */
-    public function unsubSubscriber($subscriber_email)
+    public function unsubSubscriber($subscriber_email, $permanent = false)
     {
         $params                       = array();
         $params['subscriber_email']   = php_xmlrpc_encode($subscriber_email);
+        $params['permanent']          = php_xmlrpc_encode($permanent);
         $response = $this->mmapi_call->executeMethod('unsubSubscriber', $params);
         return MMAPI_Client::getResult($response);
     }
