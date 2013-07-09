@@ -25,7 +25,7 @@
 /**
  * Class that encapsulates errors that are returned from the mailermailer API
  */
-class mmapi_rpc_error
+class MMAPI_Error
 {
 
     private $errorCode;
@@ -59,7 +59,7 @@ class mmapi_rpc_error
 
     static function isError($MMAPI_OBJECT)
     {
-        if ($MMAPI_OBJECT instanceof mmapi_rpc_error) {
+        if ($MMAPI_OBJECT instanceof MMAPI_Error) {
             return true;
         }
         return false;

@@ -23,13 +23,13 @@
  */
 
 require_once('xmlrpc/xmlrpc.inc');
-require_once('mmapi_rpc_error.php');
+require_once('MMAPI_Error.php');
 
 /**
  * Class that performs all the required work to 
  * connect to the mailermailer API.
  */
-class mmapi_rpc_call
+class MMAPI_Call
 {
 
     private $apikey;
@@ -50,7 +50,7 @@ class mmapi_rpc_call
      */
     public function executeMethod($method, $params)
     {
-        $host = mmapi_rpc_call::API_URL;
+        $host = MMAPI_Call::API_URL;
 
         $params['apikey'] = new xmlrpcval($this->apikey);
         
@@ -64,7 +64,7 @@ class mmapi_rpc_call
             return $response->value();
         } else {
             $value = $response->value();
-            return new mmapi_rpc_error($response->faultCode(), $response->faultString());
+            return new MMAPI_Error($response->faultCode(), $response->faultString());
         }
     }   
 }

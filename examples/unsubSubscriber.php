@@ -1,15 +1,15 @@
 <?php
 
-include("../mmapi_rpc.php");
+include("../MMAPI_Client.php");
 
 // Create our API object
-$MMAPI_RPC = new mmapi_rpc('api key');
+$mmapi = new MMAPI_Client('api key');
 
 // Unsubscribe user
-$response = $MMAPI_RPC->unsubSubscriber('email to unsubscribe');
+$response = $mmapi->unsubSubscriber('email to unsubscribe');
 
 // Evaluate response
-if (mmapi_rpc_error::isError($response)) {
+if (MMAPI_Error::isError($response)) {
     echo "Error \n";
     echo "Code: " . $response->getErrorCode() . "\n";
     echo "Message: ". $response->getErrorMessage() . "\n";

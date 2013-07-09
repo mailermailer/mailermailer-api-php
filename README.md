@@ -1,4 +1,4 @@
-# mmapi_rpc
+# mailermailer-api-php
 
 A PHP wrapper using the [PHPXMLRPC](http://phpxmlrpc.sourceforge.net/) library to connect to the MailerMailer API.
 
@@ -8,21 +8,21 @@ PHP 5
 
 ## Installation
 
-Just place mmapi_rpc in a directory accessible by your application
+Just place mailermailer-api-php in a directory accessible by your application
 
 ## Usage
 
-Create a mmapi_rpc instance:
+Create a MMAPI_Client instance:
 
-    $MMAPI_RPC = new mmapi_rpc('api key');
+    $mmapi = new MMAPI_Client('api key');
   
 Start making calls
 
-    $response = $MMAPI_RPC->getFormFields();
+    $response = $mmapi->getFormFields();
 
 Handle the response appropriately
 
-    if (mmapi_rpc_error::isError($response)) {
+    if (MMAPI_Error::isError($response)) {
         echo "Error \n";
         echo "Code: " . $response->getErrorCode() . "\n";
         echo "Message: ". $response->getErrorMessage() . "\n";
@@ -34,7 +34,7 @@ Handle the response appropriately
             echo "Type: " . $formfield["type"] . "\n\n";
         }
     }
-Checking the success or failure of any call can be easily done by invoking `mmapi_rpc_error::isError` on the response.
+Checking the success or failure of any call can be easily done by invoking `MMAPI_Error::isError` on the response.
 If the call encountered an error then the response will be of type Error and `isError` will return true, otherwise the call succeeded.
 Every error will have an associated error code and message which can be retrieved through the Error class getter methods as seen in the example above.
 
