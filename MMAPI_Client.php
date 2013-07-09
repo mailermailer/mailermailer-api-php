@@ -22,32 +22,32 @@
  * @link      http://www.mailermailer.com/api/index.rwp
  */
 
-require_once('mmapi_rpc_call.php');
+require_once('MMAPI_Call.php');
 
 /**
  * Class that implements all the method calls available through
  * the mailermailer API.
  */
-class mmapi_rpc
+class MMAPI_Client
 {
 
-    private $mmapi_rpc_call;
+    private $mmapi_call;
 
     public function __construct($apikey)
     {
-        $this->mmapi_rpc_call = new mmapi_rpc_call($apikey);
+        $this->mmapi_call = new MMAPI_Call($apikey);
     }
 
     /**
      * Returns the fields needed to populate signup form.
      *
-     * @return formfields_struct | mmapi_rpc_error
+     * @return formfields_struct | MMAPI_Error
      */
     public function getFormFields()
     {
         $params = array();
-        $response = $this->mmapi_rpc_call->executeMethod('getFormFields', $params);
-        return mmapi_rpc::getResult($response);
+        $response = $this->mmapi_call->executeMethod('getFormFields', $params);
+        return MMAPI_Client::getResult($response);
     }
 
     /**
@@ -56,7 +56,7 @@ class mmapi_rpc
      * @param array   $subscriber a subscriber struct
      * @param boolean $send_invite flag to send double opt-in confirmation message, defaults to true
      * @param boolean $send_welcome flag to send welcome message, defaults to false
-     * @return true | mmapi_rpc_error
+     * @return true | MMAPI_Error
      */
     public function addSubscriber($subscriber, $send_invite = true, $send_welcome = false)
     {
@@ -64,22 +64,22 @@ class mmapi_rpc
         $params['subscriber']       = php_xmlrpc_encode($subscriber);
         $params['send_invite']      = php_xmlrpc_encode($send_invite);
         $params['send_welcome']     = php_xmlrpc_encode($send_welcome);
-        $response = $this->mmapi_rpc_call->executeMethod('addSubscriber', $params);
-        return mmapi_rpc::getResult($response);
+        $response = $this->mmapi_call->executeMethod('addSubscriber', $params);
+        return MMAPI_Client::getResult($response);
     }
 
     /**
      * Unsubscribe subscriber from the account email list.
      *
      * @param string $subscriber_email email of the subscriber to unsubscribe
-     * @return true | mmapi_rpc_error
+     * @return true | MMAPI_Error
      */
     public function unsubSubscriber($subscriber_email)
     {
         $params                       = array();
         $params['subscriber_email']   = php_xmlrpc_encode($subscriber_email);
-        $response = $this->mmapi_rpc_call->executeMethod('unsubSubscriber', $params);
-        return mmapi_rpc::getResult($response);
+        $response = $this->mmapi_call->executeMethod('unsubSubscriber', $params);
+        return MMAPI_Client::getResult($response);
     }
     
     /**
@@ -91,7 +91,7 @@ class mmapi_rpc
      */
     static function getResult($response)
     {        
-        if (!mmapi_rpc_error::isError($response)) {
+        if (!MMAPI_Error::isError($response)) {
             return php_xmlrpc_decode($response);
         } else {
             return $response;

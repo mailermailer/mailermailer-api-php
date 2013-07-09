@@ -1,11 +1,11 @@
 <?php
 
-include("../mmapi_rpc.php");
+include("../MMAPI_Client.php");
 
 $subscriber = array();
 
 // Open text fields
-$subscriber['user_email'] = 'a@a.com';
+$subscriber['user_email'] = 'johndoe@example.com';
 $subscriber['user_fname'] = 'John';
 $subscriber['user_lname'] = 'Doe';
 
@@ -22,13 +22,13 @@ $subscriber['user_attr1'] = array('a','b','c','d');
 $subscriber['user_attr2'] = array('a');
 
 // Create our API object
-$MMAPI_RPC = new mmapi_rpc('api key');
+$mmapi = new MMAPI_Client('api key');
 
 // Add the subscriber
-$response = $MMAPI_RPC->addSubscriber($subscriber);
+$response = $mmapi->addSubscriber($subscriber);
 
 // Evaluate response
-if (mmapi_rpc_error::isError($response)) {
+if (MMAPI_Error::isError($response)) {
     echo "Error \n";
     echo "Code: " . $response->getErrorCode() . "\n";
     echo "Message: ". $response->getErrorMessage() . "\n";
