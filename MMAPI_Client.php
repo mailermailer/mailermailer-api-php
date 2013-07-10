@@ -39,6 +39,16 @@ class MMAPI_Client
     }
 
     /**
+     * Ping MailerMailer
+     */
+    public function ping()
+    {
+        $params = array();
+        $response = $this->mmapi_call->executeMethod('ping', $params);
+        return MMAPI_Client::getResult($response);
+    }
+
+    /**
      * Returns the fields needed to populate signup form.
      *
      * @return formfields_struct | MMAPI_Error
