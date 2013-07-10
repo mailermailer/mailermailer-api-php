@@ -3,7 +3,7 @@
 include("../MMAPI_Client.php");
 
 // Create our API object
-$mmapi = new MMAPI_Client('861d353cdf5cacc06d91d4e7136450e4');
+$mmapi = new MMAPI_Client('api key');
 
 // Ping the server
 $response = $mmapi->ping();
