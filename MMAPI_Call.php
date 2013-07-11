@@ -26,7 +26,7 @@ require_once('xmlrpc/xmlrpc.inc');
 require_once('MMAPI_Error.php');
 
 /**
- * Class that performs all the required work to 
+ * Class that performs all the required work to
  * connect to the mailermailer API.
  */
 class MMAPI_Call
