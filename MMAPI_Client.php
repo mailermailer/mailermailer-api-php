@@ -39,7 +39,20 @@ class MMAPI_Client
     }
 
     /**
-     * Returns the fields needed to populate signup form.
+     * Ping the MailerMailer API. This simple method will return "true"
+     * if you can connect with the API, or an exception if you cannot.
+     *
+     * @return true | MMAPI_Error
+     */
+    public function ping()
+    {
+        $params = array();
+        $response = $this->mmapi_call->executeMethod('ping', $params);
+        return MMAPI_Client::getResult($response);
+    }
+
+    /**
+     * Returns the fields needed to populate an add subscriber form.
      *
      * @return formfields_struct | MMAPI_Error
      */
@@ -51,7 +64,7 @@ class MMAPI_Client
     }
 
     /**
-     * Add the specified subscriber record.
+     * Add the specified subscriber record to the account email list.
      *
      * @param array   $subscriber a subscriber struct
      * @param boolean $send_invite flag to send double opt-in confirmation message, defaults to true
@@ -69,22 +82,21 @@ class MMAPI_Client
     }
 
     /**
-     * Unsubscribe subscriber from the account email list.
+     * Unsubscribe the subscriber email address from the account email list.
      *
      * @param string $subscriber_email email of the subscriber to unsubscribe
      * @return true | MMAPI_Error
      */
-    public function unsubSubscriber($subscriber_email, $permanent = false)
+    public function unsubSubscriber($subscriber_email)
     {
         $params                       = array();
         $params['subscriber_email']   = php_xmlrpc_encode($subscriber_email);
-        $params['permanent']          = php_xmlrpc_encode($permanent);
         $response = $this->mmapi_call->executeMethod('unsubSubscriber', $params);
         return MMAPI_Client::getResult($response);
     }
     
     /**
-     * Format the response as necessary
+     * Formats the response as necessary.
      *
      * @param  mixed $response xmlrpc encoded response from server
      * @return mixed
