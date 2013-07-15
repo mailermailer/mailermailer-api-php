@@ -54,7 +54,7 @@ class MMAPI_Call
         
         $xmlrpcmsg = new xmlrpcmsg($method, array(new xmlrpcval($params, 'struct')));
         $xmlrpc_client = new xmlrpc_client($host);
-        $xmlrpc_client->SetUserAgent("MM/PHP/v1.0");
+        $xmlrpc_client->SetUserAgent("MM/PHP/v1.0.1");
 
         $response = $xmlrpc_client->send($xmlrpcmsg);
 
