@@ -34,8 +34,6 @@ class MMAPI_Call
 
     private $apikey;
 
-    const API_URL     = 'https://api.mailermailer.com/1.0/';
-
     public function __construct($apikey)
     {
         $this->apikey = $apikey;
@@ -50,7 +48,7 @@ class MMAPI_Call
      */
     public function executeMethod($method, $params)
     {
-        $host = MMAPI_Call::API_URL;
+        $host = getenv("MMAPI_URL");
 
         $params['apikey'] = new xmlrpcval($this->apikey);
         
