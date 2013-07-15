@@ -48,7 +48,7 @@ class MMAPI_Call
      */
     public function executeMethod($method, $params)
     {
-        $host = getenv("MMAPI_URL");
+        $host = defined(getenv("MMAPI_URL")) ? getenv("MMAPI_URL") : "https://api.mailermailer.com/1.0/";
 
         $params['apikey'] = new xmlrpcval($this->apikey);
         
