@@ -18,7 +18,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  *            MA 02110-1301, USA.
- * @version   1.0.0
+ * @version   1.0.1
  * @link      http://www.mailermailer.com/api/index.rwp
  */
 
@@ -48,7 +48,7 @@ class MMAPI_Call
      */
     public function executeMethod($method, $params)
     {
-        $host = defined(getenv("MMAPI_URL")) ? getenv("MMAPI_URL") : "https://api.mailermailer.com/1.0/";
+        $host = getenv("MMAPI_URL") ? getenv("MMAPI_URL") : "https://api.mailermailer.com/1.0/";
 
         $params['apikey'] = new xmlrpcval($this->apikey);
         
