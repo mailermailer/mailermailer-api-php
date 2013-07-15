@@ -18,7 +18,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  *            MA 02110-1301, USA.
- * @version   1.0.0
+ * @version   1.0.1
  * @link      http://www.mailermailer.com/api/index.rwp
  */
 
@@ -34,8 +34,6 @@ class MMAPI_Call
 
     private $apikey;
 
-    const API_URL     = 'https://api.mailermailer.com/1.0/';
-
     public function __construct($apikey)
     {
         $this->apikey = $apikey;
@@ -50,13 +48,13 @@ class MMAPI_Call
      */
     public function executeMethod($method, $params)
     {
-        $host = MMAPI_Call::API_URL;
+        $host = getenv("MMAPI_URL") ? getenv("MMAPI_URL") : "https://api.mailermailer.com/1.0/";
 
         $params['apikey'] = new xmlrpcval($this->apikey);
         
         $xmlrpcmsg = new xmlrpcmsg($method, array(new xmlrpcval($params, 'struct')));
         $xmlrpc_client = new xmlrpc_client($host);
-        $xmlrpc_client->SetUserAgent("MM/PHP/v1.0");
+        $xmlrpc_client->SetUserAgent("MM/PHP/v1.0.1");
 
         $response = $xmlrpc_client->send($xmlrpcmsg);
 
