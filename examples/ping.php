@@ -2,8 +2,13 @@
 
 include("../MMAPI_Client.php");
 
+// Make sure we have an api key
+if (getenv('MMAPI_KEY') == null) {
+  exit('Set setenv("MMAPI_KEY") to use this example');
+}
+
 // Create our API object
-$mmapi = new MMAPI_Client('api key');
+$mmapi = new MMAPI_Client(getenv('MMAPI_KEY'));
 
 // Ping the server
 $response = $mmapi->ping();
