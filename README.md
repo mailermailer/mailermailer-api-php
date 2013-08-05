@@ -8,7 +8,7 @@ PHP 5
 
 ## Installation
 
-Just place mailermailer-api-php in a directory accessible by your application
+Just place mailermailer-api-php in a directory accessible by your application.
 
 ## Usage
 
