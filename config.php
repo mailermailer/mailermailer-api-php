@@ -1,6 +1,6 @@
 <?php
 
-// Store our constants
+// DO NOT ALTER THESE VALUES
 
 define('MAILAPI_ENDPOINT', 'https://api.mailermailer.com/1.0/');
 
