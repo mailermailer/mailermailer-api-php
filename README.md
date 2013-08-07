@@ -12,17 +12,17 @@ Just place mailermailer-api-php in a directory accessible by your application
 
 ## Usage
 
-Create a MMAPI_Client instance:
+Create a MAILAPI_Client instance:
 
-    $mmapi = new MMAPI_Client('api key');
+    $mailapi = new MAILAPI_Client('api key');
   
 Start making calls
 
-    $response = $mmapi->getFormFields();
+    $response = $mailapi->getFormFields();
 
 Handle the response appropriately
 
-    if (MMAPI_Error::isError($response)) {
+    if (MAILAPI_Error::isError($response)) {
         echo "Error \n";
         echo "Code: " . $response->getErrorCode() . "\n";
         echo "Message: ". $response->getErrorMessage() . "\n";
@@ -34,7 +34,7 @@ Handle the response appropriately
             echo "Type: " . $formfield["type"] . "\n\n";
         }
     }
-Checking the success or failure of any call can be easily done by invoking `MMAPI_Error::isError` on the response.
+Checking the success or failure of any call can be easily done by invoking `MAILAPI_Error::isError` on the response.
 If the call encountered an error then the response will be of type Error and `isError` will return true, otherwise the call succeeded.
 Every error will have an associated error code and message which can be retrieved through the Error class getter methods as seen in the example above.
 
@@ -45,5 +45,5 @@ For the official documentation of the Mailermailer XML-RPC API please visit [her
 We have provided examples for each call available in the API in the examples folder. In order
 to run the examples make sure you have the following environmental variables set:
 
-    MMAPI_KEY = 'your api key will go here'
-    MMAPI_TEST_EMAIL = 'the email address that you would like to use will go here'
+    MAILAPI_KEY = 'your api key will go here'
+    MAILAPI_TEST_EMAIL = 'the email address that you would like to use will go here'
