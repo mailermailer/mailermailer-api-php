@@ -1,6 +1,7 @@
 <?php
 
-// Store our constants
+// DO NOT ALTER THESE VALUES AS THEY ARE
+// ESSENTIAL TO THE FUNCTIONALITY OF THIS API WRAPPER
 
 define('MAILAPI_ENDPOINT', 'https://api.mailermailer.com/1.0/');
 
