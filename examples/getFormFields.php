@@ -1,20 +1,20 @@
 <?php
 
-include("../MMAPI_Client.php");
+include("../MAILAPI_Client.php");
 
 // Make sure we have an api key
-if (getenv('MMAPI_KEY') == null) {
-  exit('Set setenv("MMAPI_KEY") to use this example');
+if (getenv('MAILAPI_KEY') == null) {
+  exit('Set setenv("MAILAPI_KEY") to use this example');
 }
 
 // Create our API object
-$mmapi = new MMAPI_Client(getenv('MMAPI_KEY'));
+$mailapi = new MAILAPI_Client(getenv('MAILAPI_KEY'));
 
 // Get form fields
-$response = $mmapi->getFormFields();
+$response = $mailapi->getFormFields();
 
 // Evaluate response
-if (MMAPI_Error::isError($response)) {
+if (MAILAPI_Error::isError($response)) {
     echo "Error \n";
     echo "Code: " . $response->getErrorCode() . "\n";
     echo "Message: ". $response->getErrorMessage() . "\n";
