@@ -78,6 +78,20 @@ class MAILAPI_Client
     }
     
     /**
+     * Suppress the subscriber email address.
+     *
+     * @param string $subscriber_email email of the subscriber to suppress
+     * @return true | MAILAPI_Error
+     */
+    public function suppress($subscriber_email)
+    {
+        $params                       = array();
+        $params['subscriber_email']   = php_xmlrpc_encode($subscriber_email);
+        $response = $this->mailapi_call->executeMethod('suppress', $params);
+        return MAILAPI_Client::getResult($response);
+    }
+
+    /**
      * Formats the response as necessary.
      *
      * @param  mixed $response xmlrpc encoded response from server
