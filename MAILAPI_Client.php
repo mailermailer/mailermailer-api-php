@@ -87,7 +87,7 @@ class MAILAPI_Client
     {
         $params                 = array();
         $params['user_email']   = php_xmlrpc_encode($user_email);
-        $response = $this->mailapi_call->executeMethod('suppress', $params);
+        $response = $this->mailapi_call->executeMethod('suppressMember', $params);
         return MAILAPI_Client::getResult($response);
     }
 
@@ -101,7 +101,7 @@ class MAILAPI_Client
     {
         $params                 = array();
         $params['user_email']   = php_xmlrpc_encode($user_email);
-        $response = $this->mailapi_call->executeMethod('unsuppress', $params);
+        $response = $this->mailapi_call->executeMethod('unsuppressMember', $params);
         return MAILAPI_Client::getResult($response);
     }
 
