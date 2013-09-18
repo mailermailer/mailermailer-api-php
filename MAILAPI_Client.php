@@ -78,6 +78,34 @@ class MAILAPI_Client
     }
 
     /**
+     * Suppress the member email address.
+     *
+     * @param string $user_email email of the subscriber to suppress
+     * @return true | MAILAPI_Error
+     */
+    public function suppressMember($user_email)
+    {
+        $params                 = array();
+        $params['user_email']   = php_xmlrpc_encode($user_email);
+        $response = $this->mailapi_call->executeMethod('suppress', $params);
+        return MAILAPI_Client::getResult($response);
+    }
+
+    /**
+     * Unsuppress the member email address.
+     *
+     * @param string $subscriber_email email of the subscriber to unsuppress
+     * @return true | MAILAPI_Error
+     */
+    public function unsuppressMember($user_email)
+    {
+        $params                 = array();
+        $params['user_email']   = php_xmlrpc_encode($user_email);
+        $response = $this->mailapi_call->executeMethod('unsuppress', $params);
+        return MAILAPI_Client::getResult($response);
+    }
+
+    /**
      * Formats the response as necessary.
      *
      * @param  mixed $response xmlrpc encoded response from server
