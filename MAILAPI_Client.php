@@ -46,6 +46,26 @@ class MAILAPI_Client
     }
 
     /**
+     * Add a collection of members records to the account email list.
+     *
+     * @param array   $member a member struct
+     * @param boolean $send_invite flag to send double opt-in confirmation message, defaults to true
+     * @param boolean $send_welcome flag to send welcome message, defaults to false
+     * @param boolean $update_existing flag to update existing users when encountered
+     * @return true | MAILAPI_Error
+     */
+    public function addBulkMembers($members, $send_invite = true, $send_welcome = false, $update_existing = false)
+    {
+        $params                    = array();
+        $params['members']         = php_xmlrpc_encode($members);
+        $params['send_invite']     = php_xmlrpc_encode($send_invite);
+        $params['send_welcome']    = php_xmlrpc_encode($send_welcome);
+        $params['update_existing'] = php_xmlrpc_encode($update_existing);
+        $response = $this->mailapi_call->executeMethod('addBulkMembers', $params);
+        return MAILAPI_Client::getResult($response);
+    }
+
+    /**
      * Add the specified member record to the account email list.
      *
      * @param array   $member a member struct
@@ -60,6 +80,20 @@ class MAILAPI_Client
         $params['send_invite']    = php_xmlrpc_encode($send_invite);
         $params['send_welcome']   = php_xmlrpc_encode($send_welcome);
         $response = $this->mailapi_call->executeMethod('addMember', $params);
+        return MAILAPI_Client::getResult($response);
+    }
+
+    /**
+     * Unsubscribe a collection of member email addresses from the account list.
+     *
+     * @param string $user_emails emails of the members to unsubscribe
+     * @return true | MAILAPI_Error
+     */
+    public function unsubBulkMembers($user_emails)
+    {
+        $params                 = array();
+        $params['user_emails']   = php_xmlrpc_encode($user_emails);
+        $response = $this->mailapi_call->executeMethod('unsubBulkMembers', $params);
         return MAILAPI_Client::getResult($response);
     }
 
