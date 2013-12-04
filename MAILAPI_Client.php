@@ -69,16 +69,18 @@ class MAILAPI_Client
      * Add the specified member record to the account email list.
      *
      * @param array   $member a member struct
-     * @param boolean $send_invite flag to send double opt-in confirmation message, defaults to true
+     * @param boolean $send_invite flag to control if double opt-in confirmation message is sent, defaults to true
      * @param boolean $send_welcome flag to send welcome message, defaults to false
+     * @param boolean $update_existing flag to control whether existing list members should be updated rather than throwing an exception, defaults to false
      * @return true | MAILAPI_Error
      */
-    public function addMember($member, $send_invite = true, $send_welcome = false)
+    public function addMember($member, $send_invite = true, $send_welcome = false, $update_existing = false)
     {
-        $params                   = array();
-        $params['member']         = php_xmlrpc_encode($member);
-        $params['send_invite']    = php_xmlrpc_encode($send_invite);
-        $params['send_welcome']   = php_xmlrpc_encode($send_welcome);
+        $params                     = array();
+        $params['member']           = php_xmlrpc_encode($member);
+        $params['send_invite']      = php_xmlrpc_encode($send_invite);
+        $params['send_welcome']     = php_xmlrpc_encode($send_welcome);
+        $params['update_existing']  = php_xmlrpc_encode($update_existing);
         $response = $this->mailapi_call->executeMethod('addMember', $params);
         return MAILAPI_Client::getResult($response);
     }
