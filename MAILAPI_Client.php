@@ -72,15 +72,17 @@ class MAILAPI_Client
      * @param boolean $send_invite flag to control if double opt-in confirmation message is sent, defaults to true
      * @param boolean $send_welcome flag to send welcome message, defaults to false
      * @param boolean $update_existing flag to control whether existing list members should be updated rather than throwing an exception, defaults to false
+     * @param boolean $enforce_required flag to control whether missing required fields as specified by account configuration should throw an exception, defaults to true
      * @return true | MAILAPI_Error
      */
-    public function addMember($member, $send_invite = true, $send_welcome = false, $update_existing = false)
+    public function addMember($member, $send_invite = true, $send_welcome = false, $update_existing = false, $enforce_required = true)
     {
         $params                     = array();
         $params['member']           = php_xmlrpc_encode($member);
         $params['send_invite']      = php_xmlrpc_encode($send_invite);
         $params['send_welcome']     = php_xmlrpc_encode($send_welcome);
         $params['update_existing']  = php_xmlrpc_encode($update_existing);
+        $params['enforce_required'] = php_xmlrpc_encode($enforce_required);
         $response = $this->mailapi_call->executeMethod('addMember', $params);
         return MAILAPI_Client::getResult($response);
     }
