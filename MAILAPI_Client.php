@@ -52,15 +52,17 @@ class MAILAPI_Client
      * @param boolean $send_invite flag to send double opt-in confirmation message, defaults to true
      * @param boolean $send_welcome flag to send welcome message, defaults to false
      * @param boolean $update_existing flag to update existing users when encountered
+     * @param boolean $enforce_required flag to control whether missing required fields as specified by account configuration should throw an exception, defaults to true
      * @return true | MAILAPI_Error
      */
-    public function addBulkMembers($members, $send_invite = true, $send_welcome = false, $update_existing = false)
+    public function addBulkMembers($members, $send_invite = true, $send_welcome = false, $update_existing = false, $enforce_required = true)
     {
-        $params                    = array();
-        $params['members']         = php_xmlrpc_encode($members);
-        $params['send_invite']     = php_xmlrpc_encode($send_invite);
-        $params['send_welcome']    = php_xmlrpc_encode($send_welcome);
-        $params['update_existing'] = php_xmlrpc_encode($update_existing);
+        $params                     = array();
+        $params['members']          = php_xmlrpc_encode($members);
+        $params['send_invite']      = php_xmlrpc_encode($send_invite);
+        $params['send_welcome']     = php_xmlrpc_encode($send_welcome);
+        $params['update_existing']  = php_xmlrpc_encode($update_existing);
+        $params['enforce_required'] = php_xmlrpc_encode($enforce_required);
         $response = $this->mailapi_call->executeMethod('addBulkMembers', $params);
         return MAILAPI_Client::getResult($response);
     }
