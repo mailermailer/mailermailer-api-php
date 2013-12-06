@@ -46,6 +46,26 @@ class MAILAPI_Client
     }
 
     /**
+     * Add a collection of members records to the account email list.
+     *
+     * @param array   $member a member struct
+     * @param boolean $send_invite flag to send double opt-in confirmation message, defaults to true
+     * @param boolean $send_welcome flag to send welcome message, defaults to false
+     * @param boolean $update_existing flag to update existing users when encountered
+     * @return true | MAILAPI_Error
+     */
+    public function addBulkMembers($members, $send_invite = true, $send_welcome = false, $update_existing = false)
+    {
+        $params                    = array();
+        $params['members']         = php_xmlrpc_encode($members);
+        $params['send_invite']     = php_xmlrpc_encode($send_invite);
+        $params['send_welcome']    = php_xmlrpc_encode($send_welcome);
+        $params['update_existing'] = php_xmlrpc_encode($update_existing);
+        $response = $this->mailapi_call->executeMethod('addBulkMembers', $params);
+        return MAILAPI_Client::getResult($response);
+    }
+
+    /**
      * Add the specified member record to the account email list.
      *
      * @param array   $member a member struct
@@ -64,6 +84,20 @@ class MAILAPI_Client
     }
 
     /**
+     * Unsubscribe a collection of member email addresses from the account list.
+     *
+     * @param string $user_emails emails of the members to unsubscribe
+     * @return true | MAILAPI_Error
+     */
+    public function unsubBulkMembers($user_emails)
+    {
+        $params                 = array();
+        $params['user_emails']   = php_xmlrpc_encode($user_emails);
+        $response = $this->mailapi_call->executeMethod('unsubBulkMembers', $params);
+        return MAILAPI_Client::getResult($response);
+    }
+
+    /**
      * Unsubscribe the email address from the account email list.
      *
      * @param string $user_email email of the member to unsubscribe
@@ -74,6 +108,34 @@ class MAILAPI_Client
         $params                 = array();
         $params['user_email']   = php_xmlrpc_encode($user_email);
         $response = $this->mailapi_call->executeMethod('unsubMember', $params);
+        return MAILAPI_Client::getResult($response);
+    }
+
+    /**
+     * Suppress the member email address.
+     *
+     * @param string $user_email email of the subscriber to suppress
+     * @return true | MAILAPI_Error
+     */
+    public function suppressMember($user_email)
+    {
+        $params                 = array();
+        $params['user_email']   = php_xmlrpc_encode($user_email);
+        $response = $this->mailapi_call->executeMethod('suppressMember', $params);
+        return MAILAPI_Client::getResult($response);
+    }
+
+    /**
+     * Unsuppress the member email address.
+     *
+     * @param string $subscriber_email email of the subscriber to unsuppress
+     * @return true | MAILAPI_Error
+     */
+    public function unsuppressMember($user_email)
+    {
+        $params                 = array();
+        $params['user_email']   = php_xmlrpc_encode($user_email);
+        $response = $this->mailapi_call->executeMethod('unsuppressMember', $params);
         return MAILAPI_Client::getResult($response);
     }
 
