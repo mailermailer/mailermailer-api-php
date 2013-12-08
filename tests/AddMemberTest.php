@@ -90,5 +90,13 @@ class AddMember extends PHPUnit_Framework_TestCase
         $response = $this->mailapi->addMember($this->member,true,false,false,false);
         $this->assertEquals(1, $response);
     }
+
+    public function testMissingFields()
+    {
+        //make sure user_fname is a required field in your testing environment
+        $this->member["user_fname"] = "";
+        $response = $this->mailapi->addMember($this->member);
+        $this->assertEquals(301, $response->getErrorCode()); 
+    }
 }
 ?>
