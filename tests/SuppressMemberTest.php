@@ -49,7 +49,7 @@ class SuppressMember extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $response);
     }
 
-    public function testSuppressPendingUser()
+    public function testSuppressPendingListMember()
     {
         $response = $this->mailapi->addMember($this->member);
         $this->assertEquals(1, $response);

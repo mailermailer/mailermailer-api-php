@@ -51,7 +51,7 @@ class MAILAPI_Client
      * @param array   $member a member struct
      * @param boolean $send_invite flag to send double opt-in confirmation message, defaults to true
      * @param boolean $send_welcome flag to send welcome message, defaults to false
-     * @param boolean $update_existing flag to update existing users when encountered
+     * @param boolean $update_existing flag to control whether existing list members should be updated rather than throwing an exception, defaults to false
      * @param boolean $enforce_required flag to control whether missing required fields as specified by account configuration should throw an exception, defaults to true
      * @return true | MAILAPI_Error
      */
