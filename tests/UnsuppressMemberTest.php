@@ -52,7 +52,7 @@ class UnsuppressMember extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $response);
     }
 
-    public function testUnsuppressActiveUser()
+    public function testUnsuppressActiveListMember()
     {
         $response = $this->mailapi->addMember($this->member, false, true);
         $this->assertEquals(1, $response);
@@ -61,7 +61,7 @@ class UnsuppressMember extends PHPUnit_Framework_TestCase
         $this->assertEquals(112, $response->getErrorCode());
     }
 
-    public function testUnsuppressPendingUser()
+    public function testUnsuppressPendingListMember()
     {
         $response = $this->mailapi->addMember($this->member);
         $this->assertEquals(1, $response);

@@ -83,7 +83,7 @@ class AddBulkMembers extends PHPUnit_Framework_TestCase
 
     public function testEnableInviteAndWelcome()
     {
-        $response = $this->mailapi->addBulkMembers(array($this->member1, $this->member1, $this->member1), true, true, false);
+        $response = $this->mailapi->addBulkMembers(array($this->member1, $this->member1, $this->member1), true, true);
         $this->assertInstanceOf('MAILAPI_Error', $response);
         $this->assertEquals(102, $response->getErrorCode());
     }
@@ -107,6 +107,30 @@ class AddBulkMembers extends PHPUnit_Framework_TestCase
 
         $response = $this->mailapi->addBulkMembers(array($this->member1, $this->member2, $this->member3));
         $expected = array('added' => 0, 'updated' => 0, 'errors' => array('asdfasdf' => 2, 'asdf@sd.com' => 1), 'report' => $response);
+        $this->assertEquals(1, $this->checkReport($expected));
+    }
+
+    public function testDisableEnforceRequired()
+    {
+        //make sure user_fname is a required field in your testing environment
+        $this->member1["user_fname"] = '';
+        $this->member2["user_fname"] = '';
+        $this->member3["user_fname"] = '';
+
+        $response = $this->mailapi->addBulkMembers(array($this->member1, $this->member2, $this->member3),true,false,false,false);
+        $expected = array('added' => 3, 'updated' => 0, 'errors' => array(), 'report' => $response);
+        $this->assertEquals(1, $this->checkReport($expected));
+    }
+
+    public function testMissingFields()
+    {
+        //make sure user_fname is a required field in your testing environment
+        $this->member1["user_fname"] = '';
+        $this->member2["user_fname"] = '';
+        $this->member3["user_fname"] = '';
+        
+        $response = $this->mailapi->addBulkMembers(array($this->member1, $this->member2, $this->member3));
+        $expected = array('added' => 0, 'updated' => 0, 'errors' => array($this->member1["user_email"] => 1, $this->member2["user_email"] => 1, $this->member3["user_email"] => 1), 'report' => $response);
         $this->assertEquals(1, $this->checkReport($expected));
     }
     
