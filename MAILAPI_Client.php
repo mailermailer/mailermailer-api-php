@@ -120,7 +120,7 @@ class MAILAPI_Client
     /**
      * Suppress the member email address.
      *
-     * @param string $user_email email of the subscriber to suppress
+     * @param string $user_email email of the member to suppress
      * @return true | MAILAPI_Error
      */
     public function suppressMember($user_email)
@@ -134,7 +134,7 @@ class MAILAPI_Client
     /**
      * Unsuppress the member email address.
      *
-     * @param string $subscriber_email email of the subscriber to unsuppress
+     * @param string $user_email email of the member to unsuppress
      * @return true | MAILAPI_Error
      */
     public function unsuppressMember($user_email)
