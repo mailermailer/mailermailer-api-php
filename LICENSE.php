@@ -21,7 +21,7 @@
  *            along with this program; if not, write to the Free Software
  *            Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  *            MA 02110-1301, USA.
- * @version   1.0.3
+ * @version   1.0.5
  * @link      http://www.mailermailer.com/api/index.rwp
  */
 
