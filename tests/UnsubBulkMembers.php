@@ -72,7 +72,7 @@ class UnsubBulkMembers extends PHPUnit_Framework_TestCase
         $this->assertEquals(301, $response->getErrorCode());
     }
 
-    public function testUnsubNonexistentUser()
+    public function testUnsubNonexistentListMembers()
     {
         $response = $this->mailapi->unsubBulkMembers(array('dontexist', 'fake@email.com', 'er-mer-gerd'));
         $expected = array('unsubscribed' => 0, 'errors' => array('dontexist' => 1, 'fake@email.com' => 1, 'er-mer-gerd' => 1), 'report' => $response);
