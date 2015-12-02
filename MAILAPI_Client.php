@@ -29,8 +29,8 @@ class MAILAPI_Client
     public function ping()
     {
         $params = array();
-        $response = $this->mailapi_call->executeMethod('ping', $params);
-        return MAILAPI_Client::getResult($response);
+        $result = $this->mailapi_call->executeMethod('ping', $params);
+        return $result;
     }
 
     /**
@@ -41,8 +41,8 @@ class MAILAPI_Client
     public function getFormFields()
     {
         $params = array();
-        $response = $this->mailapi_call->executeMethod('getFormFields', $params);
-        return MAILAPI_Client::getResult($response);
+        $result = $this->mailapi_call->executeMethod('getFormFields', $params);
+        return $result;
     }
 
     /**
@@ -63,8 +63,8 @@ class MAILAPI_Client
         $params['send_welcome']     = php_xmlrpc_encode($send_welcome);
         $params['update_existing']  = php_xmlrpc_encode($update_existing);
         $params['enforce_required'] = php_xmlrpc_encode($enforce_required);
-        $response = $this->mailapi_call->executeMethod('addBulkMembers', $params);
-        return MAILAPI_Client::getResult($response);
+        $result = $this->mailapi_call->executeMethod('addBulkMembers', $params);
+        return $result;
     }
 
     /**
@@ -85,8 +85,8 @@ class MAILAPI_Client
         $params['send_welcome']     = php_xmlrpc_encode($send_welcome);
         $params['update_existing']  = php_xmlrpc_encode($update_existing);
         $params['enforce_required'] = php_xmlrpc_encode($enforce_required);
-        $response = $this->mailapi_call->executeMethod('addMember', $params);
-        return MAILAPI_Client::getResult($response);
+        $result = $this->mailapi_call->executeMethod('addMember', $params);
+        return $result;
     }
 
     /**
@@ -99,8 +99,8 @@ class MAILAPI_Client
     {
         $params                 = array();
         $params['user_emails']   = php_xmlrpc_encode($user_emails);
-        $response = $this->mailapi_call->executeMethod('unsubBulkMembers', $params);
-        return MAILAPI_Client::getResult($response);
+        $result = $this->mailapi_call->executeMethod('unsubBulkMembers', $params);
+        return $result;
     }
 
     /**
@@ -113,8 +113,8 @@ class MAILAPI_Client
     {
         $params                 = array();
         $params['user_email']   = php_xmlrpc_encode($user_email);
-        $response = $this->mailapi_call->executeMethod('unsubMember', $params);
-        return MAILAPI_Client::getResult($response);
+        $result = $this->mailapi_call->executeMethod('unsubMember', $params);
+        return $result;
     }
 
     /**
@@ -127,8 +127,8 @@ class MAILAPI_Client
     {
         $params                 = array();
         $params['user_email']   = php_xmlrpc_encode($user_email);
-        $response = $this->mailapi_call->executeMethod('suppressMember', $params);
-        return MAILAPI_Client::getResult($response);
+        $result = $this->mailapi_call->executeMethod('suppressMember', $params);
+        return $result;
     }
 
     /**
@@ -141,26 +141,9 @@ class MAILAPI_Client
     {
         $params                 = array();
         $params['user_email']   = php_xmlrpc_encode($user_email);
-        $response = $this->mailapi_call->executeMethod('unsuppressMember', $params);
-        return MAILAPI_Client::getResult($response);
-    }
-
-    /**
-     * Formats the response as necessary.
-     *
-     * @param  mixed $response xmlrpc encoded response from server
-     * @return mixed
-     * @static
-     */
-    static function getResult($response)
-    {        
-        if (!MAILAPI_Error::isError($response)) {
-            return php_xmlrpc_decode($response);
-        } else {
-            return $response;
-        }
+        $result = $this->mailapi_call->executeMethod('unsuppressMember', $params);
+        return $result;
     }
 }
-
 
 ?>

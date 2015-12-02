@@ -34,20 +34,20 @@ class MAILAPI_Call
         $host = getenv("MAILAPI_URL") ? getenv("MAILAPI_URL") : MAILAPI_ENDPOINT;
 
         $params['apikey'] = new xmlrpcval($this->apikey);
-        
+
         $xmlrpcmsg = new xmlrpcmsg($method, array(new xmlrpcval($params, 'struct')));
+
         $xmlrpc_client = new xmlrpc_client($host);
         $xmlrpc_client->SetUserAgent(MAILAPI_PARTNER . "/PHP/v" . MAILAPI_VERSION);
 
         $response = $xmlrpc_client->send($xmlrpcmsg);
 
         if (!$response->faultCode()) {
-            return $response->value();
+           return php_xmlrpc_decode($response->value());
         } else {
-            $value = $response->value();
             return new MAILAPI_Error($response->faultCode(), $response->faultString());
         }
-    }   
+    }
 }
 
 ?>
