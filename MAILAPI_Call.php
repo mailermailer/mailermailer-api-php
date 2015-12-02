@@ -9,6 +9,11 @@ require_once('config.php');
 require_once('MAILAPI_Error.php');
 
 /**
+ *  Override the default internal encoding declared within xmlrpc.inc
+ */
+$xmlrpc_internalencoding = "UTF-8";
+
+/**
  * Class that performs all the required work to
  * connect to the Mail API.
  */
@@ -38,6 +43,7 @@ class MAILAPI_Call
         $xmlrpcmsg = new xmlrpcmsg($method, array(new xmlrpcval($params, 'struct')));
 
         $xmlrpc_client = new xmlrpc_client($host);
+        $xmlrpc_client->request_charset_encoding="UTF-8";
         $xmlrpc_client->SetUserAgent(MAILAPI_PARTNER . "/PHP/v" . MAILAPI_VERSION);
 
         $response = $xmlrpc_client->send($xmlrpcmsg);
