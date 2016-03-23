@@ -90,6 +90,48 @@ class MAILAPI_Client
     }
 
     /**
+    * Return a collection of member records.
+    * 
+    * @param int       $limit The maximum number of records to return, defaults to the maximum of 200
+    * @param int       $offset The starting point within the paginated results (use in combination with limit), defaults to 0
+    * @param timestamp $signup_after The starting signup time from which to return records, in UTC, e.g., 2016-03-30 14:15:30
+    * @param timestamp $singup_before The ending signup time from which to return records, in UTC, e.g., 2016-03-30 14:15:30
+    * @param timestamp $updated_after The starting last updated time from which to return records, in UTC, e.g., 2016-03-30 14:15:30
+    * @param timestamp $updated_before The ending last updated time from which to return records, in UTC, e.g., 2016-03-30 14:15:30
+    * @param timestamp $unsubscribed_after The starting unsubscribed time from which to return records, in UTC, e.g., 2016-03-30 14:15:30
+    * @param timestamp $unsubscribed_before The ending unsubscribed time from which to return records, in UTC, e.g., 2016-03-30 14:15:30 
+    * @return export_struct | MAILAPI_Error
+    */
+    public function getBulkMembers($limit = 200, $offset = 0, $signup_after, $signup_before, $updated_after, $updated_before, $unsubscribed_after, $unsubscribed_before)
+    {
+        $params                        = array();
+        $params['limit']               = php_xmlrpc_encode($limit);
+        $params['offset']              = php_xmlrpc_encode($offset);
+        $params['signup_after']        = php_xmlrpc_encode($signup_after);
+        $params['singup_before']       = php_xmlrpc_encode($signup_before);
+        $params['updated_after']       = php_xmlrpc_encode($updated_after);
+        $params['updated_before']      = php_xmlrpc_encode($updated_before);
+        $params['unsubscribed_after']  = php_xmlrpc_encode($unsubscribed_after);
+        $params['unsubscribed_before'] = php_xmlrpc_encode($unsubscribed_before);
+        $result = $this->mailapi_call->executeMethod('getBulkMembers', $params);
+        return $result;
+    }
+
+    /**
+    * Return the member record.
+    *
+    * @param string $user_token Either user_email, which is the member's email (e.g., johnsmith@email.com) or user_enc, which is the member's permanent id (e.g., 01234a-56789b)
+    * @return export_struct | MAILAPI_Error
+    */
+    public function getMember($user_token)
+    {
+        $params               = array();
+        $params['user_token'] = php_xmlrpc_encode($user_token);
+        $result = $this->mailapi_call->executeMethod('getMember', $params);
+        return $result;
+    }
+
+    /**
      * Unsubscribe a collection of member email addresses from the account list.
      *
      * @param string $user_emails emails of the members to unsubscribe
@@ -141,6 +183,26 @@ class MAILAPI_Client
     {
         $params                 = array();
         $params['user_email']   = php_xmlrpc_encode($user_email);
+        $result = $this->mailapi_call->executeMethod('unsuppressMember', $params);
+        return $result;
+    }
+
+    /**
+    * Update an existing specified list member.
+    *
+    * @param string $user_token Either user_email, which is the member's email (e.g., johnsmith@email.com) or user_enc, which is the member's permanent id (e.g., 01234a-56789b) 
+    * @param member_struct $member A single member record
+    * @param boolean $enforce_required Flag to control whether missing required fields as specified by account configuration should throw an exception, defaults to true
+    * @param boolean $send_invite Flag to control if double opt-in confirmation message is sent, defaults to true
+    * @return true | MAILAPI_Error
+    */
+    public function updateMember($user_token, $member, $enforced_required = true, $send_invite = true)
+    {
+        $params                     = array();
+        $params['user_token']       = php_xmlrpc_encode($user_token);
+        $params['member']           = php_xmlrpc_encode($member);
+        $params['enforce_required'] = php_xmlrpc_encode($enforce_required);
+        $params['send_invite']      = php_xmlrpc_encode($send_invite);
         $result = $this->mailapi_call->executeMethod('unsuppressMember', $params);
         return $result;
     }
