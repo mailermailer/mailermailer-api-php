@@ -134,13 +134,13 @@ class MAILAPI_Client
     /**
      * Unsubscribe a collection of member email addresses from the account list.
      *
-     * @param string $user_emails emails of the members to unsubscribe
+     * @param array $user_tokens emails of the members to unsubscribe
      * @return true | MAILAPI_Error
      */
-    public function unsubBulkMembers($user_emails)
+    public function unsubBulkMembers($user_tokens)
     {
         $params                 = array();
-        $params['user_emails']   = php_xmlrpc_encode($user_emails);
+        $params['user_tokens']   = php_xmlrpc_encode($user_tokens);
         $result = $this->mailapi_call->executeMethod('unsubBulkMembers', $params);
         return $result;
     }
@@ -148,13 +148,13 @@ class MAILAPI_Client
     /**
      * Unsubscribe the email address from the account email list.
      *
-     * @param string $user_email email of the member to unsubscribe
+     * @param string $user_token Either user_email, which is the member's email (e.g., johnsmith@email.com) or user_enc, which is the member's permanent id (e.g., 01234a-56789b)
      * @return true | MAILAPI_Error
      */
-    public function unsubMember($user_email)
+    public function unsubMember($user_token)
     {
         $params                 = array();
-        $params['user_email']   = php_xmlrpc_encode($user_email);
+        $params['user_token']   = php_xmlrpc_encode($user_token);
         $result = $this->mailapi_call->executeMethod('unsubMember', $params);
         return $result;
     }
@@ -162,13 +162,13 @@ class MAILAPI_Client
     /**
      * Suppress the member email address.
      *
-     * @param string $user_email email of the member to suppress
+     * @param string $user_token Either user_email, which is the member's email (e.g., johnsmith@email.com) or user_enc, which is the member's permanent id (e.g., 01234a-56789b)
      * @return true | MAILAPI_Error
      */
-    public function suppressMember($user_email)
+    public function suppressMember($user_token)
     {
         $params                 = array();
-        $params['user_email']   = php_xmlrpc_encode($user_email);
+        $params['user_token']   = php_xmlrpc_encode($user_token);
         $result = $this->mailapi_call->executeMethod('suppressMember', $params);
         return $result;
     }
@@ -176,13 +176,13 @@ class MAILAPI_Client
     /**
      * Unsuppress the member email address.
      *
-     * @param string $user_email email of the member to unsuppress
+     * @param string $user_token Either user_email, which is the member's email (e.g., johnsmith@email.com) or user_enc, which is the member's permanent id (e.g., 01234a-56789b)
      * @return true | MAILAPI_Error
      */
-    public function unsuppressMember($user_email)
+    public function unsuppressMember($user_token)
     {
         $params                 = array();
-        $params['user_email']   = php_xmlrpc_encode($user_email);
+        $params['user_token']   = php_xmlrpc_encode($user_token);
         $result = $this->mailapi_call->executeMethod('unsuppressMember', $params);
         return $result;
     }
