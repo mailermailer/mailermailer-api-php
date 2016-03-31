@@ -2,7 +2,7 @@
 
 require_once("test_config.php");
 
-class UnsubMember extends PHPUnit_Framework_TestCase
+class GetMember extends PHPUnit_Framework_TestCase
 {
     protected $mailapi;
     protected $email;
@@ -40,43 +40,20 @@ class UnsubMember extends PHPUnit_Framework_TestCase
         $response = $this->mailapi->addMember($this->member);
         $this->assertEquals(1, $response);
         
-        sleep(1);
+        sleep(2);
     }
 
     public function testSuccess()
     {
-        $response = $this->mailapi->unsubMember($this->email);
-        $this->assertEquals(1, $response);
+        $response = $this->mailapi->getMember($this->email);
+        $this->assertNotInstanceOf('MAILAPI_Error', $response);
     }
 
-    public function testUnsubTwice()
+    public function testNonExistentUser()
     {
-        $response = $this->mailapi->unsubMember($this->email);
-        $this->assertEquals(1, $response);
-
-        $response = $this->mailapi->unsubMember($this->email);
-        $this->assertEquals(112, $response->getErrorCode());   
-    }
-
-    public function testUnsubNonexistentListMember()
-    {
-        $response = $this->mailapi->unsubMember("This email doesn't exist");
-        $this->assertEquals(302, $response->getErrorCode());        
-    }
-
-    public function testMissingFields()
-    {
-        $response = $this->mailapi->unsubMember("");
-        $this->assertEquals(301, $response->getErrorCode());   
-    }
-
-    public function testUnsubResub()
-    {
-        $response = $this->mailapi->unsubMember($this->email);
-        $this->assertEquals(1, $response);
-
-        $response = $this->mailapi->addMember($this->member);
-        $this->assertEquals(112, $response->getErrorCode());
+        $response = $this->mailapi->getMember('fake@email.com');
+        $this->assertEquals(305, $response->getErrorCode());
     }
 }
+
 ?>

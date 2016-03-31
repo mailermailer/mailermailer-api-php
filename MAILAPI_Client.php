@@ -203,7 +203,7 @@ class MAILAPI_Client
         $params['member']           = php_xmlrpc_encode($member);
         $params['enforce_required'] = php_xmlrpc_encode($enforce_required);
         $params['send_invite']      = php_xmlrpc_encode($send_invite);
-        $result = $this->mailapi_call->executeMethod('unsuppressMember', $params);
+        $result = $this->mailapi_call->executeMethod('updateMember', $params);
         return $result;
     }
 }
