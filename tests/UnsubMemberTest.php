@@ -60,8 +60,14 @@ class UnsubMember extends PHPUnit_Framework_TestCase
 
     public function testUnsubNonexistentListMember()
     {
-        $response = $this->mailapi->unsubMember("This email doesn't exist");
+        $response = $this->mailapi->unsubMember("fakeuser@email.com");
         $this->assertEquals(305, $response->getErrorCode());        
+    }
+
+    public function testUnsubBadEmail()
+    {
+        $response = $this->mailapi->unsubMember("This email doesn't exist");
+        $this->assertEquals(302, $response->getErrorCode());        
     }
 
     public function testMissingFields()

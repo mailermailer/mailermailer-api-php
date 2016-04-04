@@ -12,6 +12,8 @@ if (getenv('MAILAPI_TEST_EMAIL') == null) {
   exit("Provide the test email address by setting MAILAPI_TEST_EMAIL env variable.\n");
 }
 
+date_default_timezone_set('UTC');
+
 $test_apikey = getenv('MAILAPI_KEY');
 
 $test_email1 = str_replace("@", "+php1" . md5(time()) . "@", getenv('MAILAPI_TEST_EMAIL'));
